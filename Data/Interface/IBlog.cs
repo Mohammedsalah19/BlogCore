@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Data.Interface
 {
-    interface IBlog
+    public   interface IBlog
     {
 
 

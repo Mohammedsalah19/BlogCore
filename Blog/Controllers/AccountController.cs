@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Data;
 using Data.Interface;
 using Data.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -32,8 +34,19 @@ namespace Blog.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Register(Register user)
+        public IActionResult Register(Register user , IFormFile photo)
         {
+
+            // upload photo
+
+            if (photo != null)
+            {
+
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "~/uploads", photo.FileName);
+                var stream = new FileStream(path, FileMode.Create);
+                photo.CopyToAsync(stream);
+                user.Photo = photo.FileName;
+            }
 
             if (ModelState.IsValid)
             {

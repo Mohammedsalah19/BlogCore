@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Data.Models.Register>
+﻿@model IEnumerable<Data.Models.Blog>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,22 +13,22 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Fname)
+                @Html.DisplayNameFor(model => model.Tiltle)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Lname)
+                @Html.DisplayNameFor(model => model.body)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                @Html.DisplayNameFor(model => model.user)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Password)
+                @Html.DisplayNameFor(model => model.Datetime)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BirthDate)
+                @Html.DisplayNameFor(model => model.Subject)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Photo)
+                @Html.DisplayNameFor(model => model.rate)
             </th>
             <th></th>
         </tr>
@@ -37,27 +37,27 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Fname)
+                @Html.DisplayFor(modelItem => item.Tiltle)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Lname)
+                @Html.DisplayFor(modelItem => item.body)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Email)
+                @Html.DisplayFor(modelItem => item.user)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Password)
+                @Html.DisplayFor(modelItem => item.Datetime)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.BirthDate)
+                @Html.DisplayFor(modelItem => item.Subject)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Photo)
+                @Html.DisplayFor(modelItem => item.rate)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.iD">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.iD">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.iD">Delete</a>
             </td>
         </tr>
 }

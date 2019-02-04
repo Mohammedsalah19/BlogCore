@@ -8,52 +8,48 @@ using Blog.Models;
 using BlogService.Services;
 using Data.Models;
 using Data.Interface;
+using Data;
 
 namespace Blog.Controllers
 {
     public class HomeController : Controller
     {
-        private IRegister _RegisterService;
+        private IBlog _blogService;
         private Data.BlogContext _context;
 
 
-        public HomeController(IRegister service)
+        public HomeController(IBlog service, BlogContext context)
         {
-            this._RegisterService = service;
+            this._blogService = service;
+            this._context = context;
         }
-        public IActionResult login(Register user)
-        {
-
-            _RegisterService.login(user);
-            return View();
-        }
-
-        [HttpGet]
-        public ActionResult Register()
-        {
-            return View();
-        }
-        [HttpPost]
-        public IActionResult Register(Register user  )
-        {
-             
-            if (ModelState.IsValid)
-            {
-                _RegisterService.register(user);
-                return RedirectToAction("Index", "Home");
-
-            }
-
-            return View(user);
-        }
+ 
 
 
         public IActionResult Index()
         {
-            _context.register.ToList();
+            return View(_blogService.getAll());
+        }
+        [HttpGet]
+        public IActionResult create()
+        {
 
             return View();
         }
+        [HttpPost]
+        public IActionResult create(Data.Models.Blog blog)
+        {
+            if (ModelState.IsValid)
+            {
+                _blogService.add(blog);
+                return RedirectToAction(nameof(Index));
+            }
+
+
+            return View();
+        }
+
+
 
         public IActionResult About()
         {
