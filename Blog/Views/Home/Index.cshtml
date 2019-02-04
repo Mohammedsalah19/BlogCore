@@ -6,60 +6,112 @@
 
 <h2>Index</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Tiltle)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.body)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.user)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Datetime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Subject)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.rate)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tiltle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.body)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.user)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Datetime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Subject)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.rate)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.iD">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.iD">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.iD">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+<div style="margin:3%;border-radius:5px;text-align:center" id="Bloglist">
+
+
+
+
+
+    <br />
+    <table class="table">
+
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <div class="row">
+
+                    <div class="col-xs-8" style="border:2px solid#808080;margin-bottom:7px;border-radius:5px; background-color:# ;width:100%;height:100%;font-size:1.3em">
+                        <label style="color:#404d5b">
+                            @Html.DisplayFor(modelItem => item.Tiltle)
+                        </label>
+                        <br />
+                        <br />
+                        @Html.DisplayFor(modelItem => item.body)
+                        <br />
+                        <br />
+                        <label>
+                            Powered By : <a asp-action="Edit" asp-route-id="@Html.DisplayName(item.user)">@Html.DisplayFor(modelItem => item.user)</a> 
+
+                        </label>
+                        <br />
+
+                        Deprtment : @Html.DisplayFor(modelItem => item.Subject)
+
+                        <br />
+                        @Html.DisplayFor(modelItem => item.Datetime)
+
+
+                        <br />
+                        @Html.ActionLink("View", "Blog", new { id = item.iD })
+
+                        <hr />
+                    </div>
+                </div>
+            </tr>
+
+        }
+    </table>
+</div>
+
+
+@*
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tiltle)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.body)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.user)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Datetime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Subject)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.rate)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tiltle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.body)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.user)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Datetime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subject)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.rate)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.iD">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.iD">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.iD">Delete</a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
+*@

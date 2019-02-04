@@ -49,7 +49,11 @@ namespace Blog.Controllers
             return View();
         }
 
-
+        public IActionResult Blog(int id)
+        {
+            
+            return View(_blogService.getById(id));
+        }
 
         public IActionResult About()
         {

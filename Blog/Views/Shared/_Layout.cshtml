@@ -30,8 +30,9 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="create">New Blog</a></li>
+                    <li><a asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
+ 
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                 </ul>
             </div>
@@ -44,8 +45,14 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2019 - Blog</p>
-        </footer>
+            <center>
+
+                <p>&copy; 2019 - Blog</p>
+            </center>
+
+
+</footer>
+
     </div>
 
     <environment include="Development">

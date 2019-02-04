@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Data.Models.Blog>
+
+@{
+    ViewData["Title"] = "Blog";
+}
+
+<h2>Blog detalis</h2>
+<div style="margin:3%;border-radius:5px;text-align:center" id="Bloglist">
+
+
+
+
+
+    <br />
+    <table class="table">
+
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <div class="row">
+
+                    <div class="col-xs-8" style="border:2px solid#808080;margin-bottom:7px;border-radius:5px; background-color:# ;width:100%;height:100%;font-size:1.3em">
+                        <label style="color:#404d5b">
+                            @Html.DisplayFor(modelItem => item.Tiltle)
+                        </label>
+                        <br />
+                        <br />
+                        @Html.DisplayFor(modelItem => item.body)
+                        <br />
+                        <br />
+                        <label>
+                            Powered By : <a asp-action="Edit" asp-route-id="@Html.DisplayName(item.user)">@Html.DisplayFor(modelItem => item.user)</a>
+
+                        </label>
+                        <br />
+
+                        Deprtment : @Html.DisplayFor(modelItem => item.Subject)
+
+                        <br />
+                        @Html.DisplayFor(modelItem => item.Datetime)
+
+
+                        <br />
+                        <br />
+                        <br />
+
+                        <span style="float:left"> @Html.ActionLink("<<back", "index")</span>
+
+                        <hr />
+                    </div>
+                </div>
+            </tr>
+
+        }
+    </table>
+</div>
