@@ -18,7 +18,7 @@ namespace Data.Migrations
                     Lname = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
                     Password = table.Column<string>(nullable: true),
-                    BirthDate = table.Column<DateTime>(nullable: false),
+                    BirthDate = table.Column<DateTime>(nullable: true),
                     Photo = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
