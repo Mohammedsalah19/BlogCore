@@ -9,7 +9,7 @@ using BlogService.Services;
 using Data.Models;
 using Data.Interface;
 using Data;
-
+using Microsoft.AspNetCore.Http;
 namespace Blog.Controllers
 {
     public class HomeController : Controller
@@ -33,18 +33,32 @@ namespace Blog.Controllers
         [HttpGet]
         public IActionResult create()
         {
+                 if (HttpContext.Session.GetString("Name") !=null)
+            {
+                return View();
 
-            return View();
+            }
+            return RedirectToAction("login", "Account");
+
         }
         [HttpPost]
         public IActionResult create(Data.Models.Blog blog)
         {
-            if (ModelState.IsValid)
-            {
-                _blogService.add(blog);
-                return RedirectToAction(nameof(Index));
-            }
 
+            //ViewBag.username = HttpContext.Session.GetString("Name");
+            // if (ViewBag.username != null)
+            //{
+                if (ModelState.IsValid)
+                {
+                blog.user = HttpContext.Session.GetString("Name");
+
+                 _blogService.add(blog);
+                    return RedirectToAction(nameof(Index));
+                }
+
+              //  return RedirectToAction("login","Account");
+
+           // }
 
             return View();
         }
@@ -54,6 +68,15 @@ namespace Blog.Controllers
             
             return View(_blogService.getById(id));
         }
+
+        public IActionResult User(int id)
+        {
+
+            return View(_blogService.getUser(id));
+        }
+
+
+
 
         public IActionResult About()
         {

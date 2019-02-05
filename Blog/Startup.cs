@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Blog
 {
@@ -38,6 +39,11 @@ namespace Blog
             services.AddScoped<IRegister,RegisterSevice>();
 
             services.AddScoped<IBlog, BlogService.Services.BlogService>();
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+
+            services.AddMvc().AddSessionStateTempDataProvider();
+            services.AddSession();
 
             //connect to database
             services.AddDbContext<BlogContext>(options => options.UseSqlServer(Configuration.GetConnectionString("BlogConnection")));
@@ -57,7 +63,8 @@ namespace Blog
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
-
+            app.UseSession();
+            app.UseMvc();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseDefaultFiles();

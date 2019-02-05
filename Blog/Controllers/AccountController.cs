@@ -73,15 +73,29 @@ namespace Blog.Controllers
 
                 if (obj != null)
                 {
+                    HttpContext.Session.SetString("userid", obj.id.ToString());
+
+                     HttpContext.Session.SetString("Name", obj.Fname.ToString() + obj.Fname.ToString());
+                   // ViewBag.user = HttpContext.Session.GetString("Name");
                     return RedirectToAction(nameof(Index));
+                  
+
                 }
             }
             return View();
 
         }
 
+        
 
-        private Register CheckPass(string email , string pass)
+          public IActionResult LogOff()
+          {
+               HttpContext.Session.Remove("Name");
+               return RedirectToAction(nameof(Index),"Home");
+          }
+
+
+            private Register CheckPass(string email , string pass)
         {
 
 

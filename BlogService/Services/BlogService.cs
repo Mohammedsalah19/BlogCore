@@ -42,5 +42,10 @@ namespace BlogService.Services
         {
             throw new NotImplementedException();
         }
+
+        public IEnumerable<Blog> getUser(int userid)
+        {
+            return _context.blogs.Where(blog => blog.user == userid.ToString());
+        }
     }
 }
