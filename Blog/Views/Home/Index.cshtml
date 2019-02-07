@@ -1,4 +1,6 @@
-﻿@model IEnumerable<Data.Models.Blog>
+﻿@*@model IEnumerable<Data.Models.Blog>*@
+
+@model PagedList.Core.BasePagedList<Data.Models.Blog>
 
 @{
     ViewData["Title"] = "Index";
@@ -32,7 +34,7 @@
                         <br />
                         <br />
                         <label>
-                            Powered By : <a asp-action="User" asp-route-id="@Html.DisplayName(item.user)">@Html.DisplayFor(modelItem => item.user)</a> 
+                            Powered By : <a asp-action="User" asp-route-id="@Html.DisplayName(item.user)">@Html.DisplayFor(modelItem => item.user)</a>
 
                         </label>
                         <br />
@@ -49,10 +51,23 @@
                         <hr />
                     </div>
                 </div>
+
+
             </tr>
 
+
         }
+        
+        <tr>
+            <td colspan="5" align="center">
+                <pager list="@Model" asp-controller="Home" asp-action="index"></pager>
+
+            </td>
+        </tr>
+
     </table>
+
+
 </div>
 
 

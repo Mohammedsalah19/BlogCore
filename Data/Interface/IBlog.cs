@@ -15,7 +15,7 @@ namespace Data.Interface
         void delete(Blog blog);
         void update(Blog blog);
 
-        IEnumerable<Blog> getUser(int id);
+        IEnumerable<Blog> getUser(string id);
 
 
     }

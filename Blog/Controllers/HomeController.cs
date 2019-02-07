@@ -10,7 +10,8 @@ using Data.Models;
 using Data.Interface;
 using Data;
 using Microsoft.AspNetCore.Http;
-namespace Blog.Controllers
+using PagedList.Core;
+ namespace Blog.Controllers
 {
     public class HomeController : Controller
     {
@@ -26,9 +27,11 @@ namespace Blog.Controllers
  
 
 
-        public IActionResult Index()
+        public IActionResult Index(int page=1 , int listSize= 3)
         {
-            return View(_blogService.getAll());
+            PagedList<Data.Models.Blog> model = new PagedList<Data.Models.Blog>(_context.blogs, page, listSize);
+            //_blogService.getAll()
+            return View(model);
         }
         [HttpGet]
         public IActionResult create()
@@ -39,27 +42,20 @@ namespace Blog.Controllers
 
             }
             return RedirectToAction("login", "Account");
-
+                
         }
         [HttpPost]
         public IActionResult create(Data.Models.Blog blog)
         {
-
-            //ViewBag.username = HttpContext.Session.GetString("Name");
-            // if (ViewBag.username != null)
-            //{
                 if (ModelState.IsValid)
                 {
+                blog.Datetime = DateTime.Now;
                 blog.user = HttpContext.Session.GetString("Name");
 
                  _blogService.add(blog);
                     return RedirectToAction(nameof(Index));
                 }
-
-              //  return RedirectToAction("login","Account");
-
-           // }
-
+ 
             return View();
         }
 
@@ -69,7 +65,7 @@ namespace Blog.Controllers
             return View(_blogService.getById(id));
         }
 
-        public IActionResult User(int id)
+        public IActionResult User(string id)
         {
 
             return View(_blogService.getUser(id));
