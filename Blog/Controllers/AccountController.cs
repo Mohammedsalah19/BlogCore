@@ -22,12 +22,16 @@ namespace Blog.Controllers
             this._RegisterService = service;
             this._context = context;
         }
-        public  IActionResult Index()
+
+        #region Index
+        public IActionResult Index()
         {
 
              return View(_RegisterService.GetAll());
         }
+        #endregion
 
+        #region Register
         [HttpGet]
         public IActionResult Register()
         {
@@ -62,7 +66,9 @@ namespace Blog.Controllers
 
 
         }
+        #endregion
 
+        #region login
         public IActionResult Login(Register user)
         {
            
@@ -77,7 +83,7 @@ namespace Blog.Controllers
 
                      HttpContext.Session.SetString("Name", obj.Fname.ToString() + obj.Fname.ToString());
                    // ViewBag.user = HttpContext.Session.GetString("Name");
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(Index),"Home");
                   
 
                 }
@@ -86,16 +92,20 @@ namespace Blog.Controllers
 
         }
 
-        
+        #endregion
 
-          public IActionResult LogOff()
+        #region logoff
+
+        public IActionResult LogOff()
           {
                HttpContext.Session.Remove("Name");
                return RedirectToAction(nameof(Index),"Home");
           }
 
+        #endregion
 
-            private Register CheckPass(string email , string pass)
+        #region checkPass Method
+        private Register CheckPass(string email , string pass)
         {
 
 
@@ -114,6 +124,7 @@ namespace Blog.Controllers
             
         }
 
+        #endregion
 
 
     }

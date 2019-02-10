@@ -3,72 +3,128 @@
 @model PagedList.Core.BasePagedList<Data.Models.Blog>
 
 @{
-    ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+ <script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+<div style="margin:3%;border-radius:5px;text-align:center" id="">
+
+    
 
 
-<div style="margin:3%;border-radius:5px;text-align:center" id="Bloglist">
+    <form   method="post" asp-action="Search" asp-controller="Home" data-ajax="true"  data-ajax-update="#bloglist" data-ajax-mode="replace">
+        <input id="SeacrhText" name="SeacrhText" type="text" />
+        <button class="btn btn-default" value="Search" style=" width:150px; background-color:#428bca;">Search</button>
+    </form>
+         <br />
+         <div id="bloglist">
+             <table class="table">
 
 
+                 @foreach (var item in Model)
+                 {
+                     <tr>
+                         <div class="row">
+
+                             <div class="col-xs-8" style="border:2px solid#808080;margin-bottom:7px;border-radius:5px; background-color:# ;width:100%;height:100%;font-size:1.3em">
+                                 <label style="color:#404d5b">
+                                     @Html.DisplayFor(modelItem => item.Tiltle)
+                                 </label>
+                                 <br />
+                                 <br />
+                                 @Html.DisplayFor(modelItem => item.body)
+                                 <br />
+                                 <br />
+                                 <label>
+                                     Powered By : <a asp-action="User" asp-route-id="@Html.DisplayName(item.user)">@Html.DisplayFor(modelItem => item.user)</a>
+
+                                 </label>
+                                 <br />
+
+                                 Deprtment : @Html.DisplayFor(modelItem => item.Subject)
+
+                                 <br />
+                                 @Html.DisplayFor(modelItem => item.Datetime)
 
 
+                                 <br />
+                                 @Html.ActionLink("View", "Blog", new { id = item.iD })
 
-    <br />
-    <table class="table">
-
-
-        @foreach (var item in Model)
-        {
-            <tr>
-                <div class="row">
-
-                    <div class="col-xs-8" style="border:2px solid#808080;margin-bottom:7px;border-radius:5px; background-color:# ;width:100%;height:100%;font-size:1.3em">
-                        <label style="color:#404d5b">
-                            @Html.DisplayFor(modelItem => item.Tiltle)
-                        </label>
-                        <br />
-                        <br />
-                        @Html.DisplayFor(modelItem => item.body)
-                        <br />
-                        <br />
-                        <label>
-                            Powered By : <a asp-action="User" asp-route-id="@Html.DisplayName(item.user)">@Html.DisplayFor(modelItem => item.user)</a>
-
-                        </label>
-                        <br />
-
-                        Deprtment : @Html.DisplayFor(modelItem => item.Subject)
-
-                        <br />
-                        @Html.DisplayFor(modelItem => item.Datetime)
+                                 <hr />
+                             </div>
+                         </div>
 
 
-                        <br />
-                        @Html.ActionLink("View", "Blog", new { id = item.iD })
-
-                        <hr />
-                    </div>
-                </div>
+                     </tr>
 
 
-            </tr>
+                 }
+
+                 <tr>
+                     <td colspan="5" align="center">
+                         <pager list="@Model" asp-controller="Home" asp-action="index"></pager>
+
+                     </td>
+                 </tr>
+
+             </table>
+
+         </div>
+    </div>
+
+<script>
+
+    $(document).ready(function () {
+
+        $("SeacrhText").autocomelete({
+
+            source: function (request, response) {
+                $.ajax({
+                    url: "Home/autoSearch",
+                    type: "POST",
+                    dataType: "json",
+
+                    data: { term: request.term },
+                    success: function (data) {
+
+                        response($.map(data, function (item) {
+                            return { label: item.name, value: item.title }
+                        }))
+
+                    },
+                    messages: {
+
+                        noResults: "", results: ""
+                    }
+
+                })
+
+            },
+
+        });
 
 
-        }
-        
-        <tr>
-            <td colspan="5" align="center">
-                <pager list="@Model" asp-controller="Home" asp-action="index"></pager>
-
-            </td>
-        </tr>
-
-    </table>
+    });
 
 
-</div>
+    });
+
+</script>
+<script type="text/javascript">
+
+    $(function () {
+
+        $("SeacrhText").autocomelete({
+
+            source: '@Url.Action("autoSearch")'
+
+        });
+
+
+    });
+
+</script>
 
 
 @*

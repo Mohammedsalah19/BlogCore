@@ -33,6 +33,29 @@ using PagedList.Core;
             //_blogService.getAll()
             return View(model);
         }
+
+
+        public PartialViewResult Search(string SeacrhText)
+        {
+           
+            var dd = _context.blogs.Where(s => s.Tiltle.StartsWith(SeacrhText));
+            return PartialView("Search",dd);
+        }
+
+        public JsonResult autoSearch(string Prefix)
+        {
+
+            var ps = from p in _context.blogs
+                     where p.Tiltle.StartsWith(Prefix)
+                     select new { Name = p.Tiltle };
+
+            return Json(ps.ToList().Take(5));
+        }
+
+
+
+        #region Create
+
         [HttpGet]
         public IActionResult create()
         {
@@ -59,27 +82,26 @@ using PagedList.Core;
             return View();
         }
 
+        #endregion
+
+        #region BlogID
         public IActionResult Blog(int id)
         {
             
             return View(_blogService.getById(id));
         }
 
+        #endregion
+        #region Get user blogs
         public IActionResult User(string id)
         {
 
             return View(_blogService.getUser(id));
         }
 
+        #endregion
 
-
-
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
+        #region contact
 
         public IActionResult Contact()
         {
@@ -87,6 +109,7 @@ using PagedList.Core;
 
             return View();
         }
+        #endregion
 
         public IActionResult Privacy()
         {

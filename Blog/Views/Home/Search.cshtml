@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Data.Models.Blog>
+
+
+
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div style="margin:3%;border-radius:5px;text-align:center" id="">
+    <div id="bloglist">
+        <table class="table">
+
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <div class="row">
+
+                        <div class="col-xs-8" style="border:2px solid#808080;margin-bottom:7px;border-radius:5px; background-color:# ;width:100%;height:100%;font-size:1.3em">
+                            <label style="color:#404d5b">
+                                @Html.DisplayFor(modelItem => item.Tiltle)
+                            </label>
+                            <br />
+                            <br />
+                            @Html.DisplayFor(modelItem => item.body)
+                            <br />
+                            <br />
+                            <label>
+                                Powered By : <a asp-action="User" asp-route-id="@Html.DisplayName(item.user)">@Html.DisplayFor(modelItem => item.user)</a>
+
+                            </label>
+                            <br />
+
+                            Deprtment : @Html.DisplayFor(modelItem => item.Subject)
+
+                            <br />
+                            @Html.DisplayFor(modelItem => item.Datetime)
+
+
+                            <br />
+                            @Html.ActionLink("View", "Blog", new { id = item.iD })
+
+                        </div>
+                    </div>
+
+
+                </tr>
+
+
+            }
+
+
+
+        </table>
+
+    </div>
+</div>
+
+    </div>
